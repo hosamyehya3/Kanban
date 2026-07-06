@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="./image/3977911.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <nav id="nav" class="navbar myColor py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand ms-3" href="#">
+                <i class="fa-solid fa-table-columns fa-buzz fa-xl" style="color: rgb(245, 251, 249);"></i>
+                <span class="text-white fw-bold">Kanban</span>
+            </a>
+            <div id="addinfo" class="add me-5">
+                <i class="fa-solid fa-plus fa-lg" style="color: rgb(245, 251, 249);"></i>
+            </div>
+        </div>
+    </nav>
+    <main id="main" class="py-5">
+        <div class="container-fluid  d-flex justify-content-around ">
+            <div class="section1 ms-2  py-5  position-relative ">
+                <div class="d-flex   position-absolute position">
+                    <div class="box m-3"> <i class="fa-solid fa-clipboard-list fa-xl"
+                            style="color: rgb(98, 116, 142);"></i></div>
+                    <div class="mt-3 ">
+                        <p class="m-0 fw-bold">To Do</p>
+                        <p class="m-0 fw-light Text">0 tasks</p>
+                    </div>
+                </div>
+                <div class="rowdata  position-absolute">
+                    <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+                    <div class="folder-info mt-2">
+                        <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                        <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+                    </div>
+                </div>
+
+
+
+
+                <!-- card -->
+                <div class="d-none border Card mx-auto my-4 rounded-3  px-3 bg-white shadow">
+                    <div class="contain d-flex justify-content-between mt-3">
+                        <div class="d-flex justify-content-center">    <div class="circle mt-1"></div>
+                        <p class="numberChange ms-2">#001</p></div>
+                    
+                        <div class="d-flex btns ">
+                            <div title="Delete Task" class="mx-3 delete"><i class="fa-solid fa-trash-can fa-xs" style="color: rgb(160, 175, 195);"></i></div>
+                            <div title="Edit Task" class="updata"><i class="fa-solid fa-pen fa-xs" style="color: rgb(160, 175, 195);"></i></div>
+                        </div>
+                    </div>
+                    <p class="fw-bold m-0">hrthrt</p>
+                    <p class="m-0 text-secondary">how to use js</p>
+                    <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i> <span
+                            class="mx-1">Medium</span> </div>
+                    <div class="timer border-bottom pb-2">
+                        <i class="fa-regular fa-clock fa-2xs" style="color: rgb(160, 175, 195);"></i>
+                        <span class="timerAgo">53m ago</span>
+                    </div>
+                    <div class="group-btns d-flex">
+                        <div class="stratBtn d-flex justify-content-center align-items-center my-2">
+                            <i class="fa-solid fa-play fa-2xs" style="color: rgb(187, 77, 0);"></i> <span>Start</span>
+                        </div>
+                        <div class="stratBtn complete d-flex mx-3 justify-content-center align-items-center my-2">
+                            <i class="fa-solid fa-check fa-2xs" style="color: rgb(12, 131, 94);"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+            <div class="section2 mx-2  position-relative py-5">
+                <div class="d-flex  position-absolute position1">
+                    <div class="box box-spinner m-3"><i class="fa-solid fa-spinner fa-xl"
+                            style="color: rgb(254, 158, 9);"></i></div>
+                    <div class="mt-3">
+                        <p class="m-0 fw-bold">In Progress</p>
+
+                        <p class="m-0 fw-light Text">0 tasks</p>
+                    </div>
+                </div>
+                <div class="progress-Data rowdata position-absolute">
+                    <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+                    <div class="folder-info mt-2">
+                        <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                        <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="section3 me-2  position-relative py-5">
+                <div class="d-flex  position-absolute position2">
+                    <div class="box box-right m-3"> <i class="fa-solid fa-circle-check fa-xl"
+                            style="color: rgb(0, 188, 125);"></i></div>
+                    <div class="mt-3">
+                        <p class="m-0 fw-bold">To Do</p>
+                        <p class="m-0 fw-light Text">0 tasks</p>
+                    </div>
+                </div>
+                <div class=" rowdata position-absolute">
+                    <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+                    <div class="folder-info mt-2">
+                        <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                        <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer id="footer" class="backGround py-1">
+        <div class="mt-1">
+            <p class="d-flex justify-content-center align-items-center">Made with
+                <i class="fa-solid fa-heart fa-buzz fa-2xs mx-1" style="color: rgb(196, 32, 78);"></i>
+                by Route Academy
+            </p>
+        </div>
+    </footer>
+
+    
+    <!-- maincard -->
+    <div class="CardForm d-none bg-white  rounded-3 border p-3 border-3 mt-5 mx-auto">
+        <div class="d-flex border-bottom   justify-content-between align-items-center">
+            <p class="mt-1 fw-bold">Create New Task</p>
+            <div class="xmark"><i class="fa-solid fa-xmark fa-sm" style="color: rgb(69, 85, 117);"></i></div>
+        </div>
+        <div class="first-btn my-3">
+            <label for="FormControlInput1" class="form-label">
+                <i class="me-1 fa-solid fa-heading fa-sm" style="color: rgb(69, 85, 117);"></i>Task Title <span
+                    class="text-danger">*</span></label>
+            <input type="email" class="form-control py-2" id="FormControlInput1" placeholder="What needs to be done?">
+        </div>
+        <div class="second-btn gap-5 d-flex justify-content-between align-items-center ">
+            <div class="w-50">
+                <label class="py-1" for="text"><i class="fa-solid fa-flag fa-sm" style="color: rgb(69, 85, 117);"></i>
+                    Priority</label>
+                <select class="form-select py-2" id="text" aria-label="Default select example">
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="3">High</option>
+                </select>
+            </div>
+            <div class="w-50">
+                <label class="py-1" for="date"><i class="fa-regular fa-calendar fa-sm"
+                        style="color: rgb(69, 85, 117);"></i> Due Date</label>
+                <input type="date" class="form-control date py-2" id="date">
+            </div>
+        </div>
+        <div class="third-btn py-3">
+            <div class="mb-3">
+                <label for="FormControlTextarea1" class="form-label"><i class="fa-solid fa-align-left fa-sm"
+                        style="color: rgb(69, 85, 117);"></i> Description</label>
+                <textarea maxlength="500" class="form-control description" id="FormControlTextarea1" rows="3"
+                    placeholder="Add more details about this task..."></textarea>
+                <p id="count" class="text-end py-1 font-size">0/500</p>
+            </div>
+        </div>
+        <div class="last-btns">
+            <button id="close" class="btn btn-danger">Cancel</button>
+            <button class="btn btn-success"> <i class="fa-solid fa-plus fa-sm" style="color: rgb(248, 246, 246);"></i>
+                Add Task</button>
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script src="./dist/main.js"></script>
+</body>
+
+</html>
