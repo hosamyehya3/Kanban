@@ -90,12 +90,17 @@ font-size: 12px !important;
 }
 .first-btn input{
     box-shadow: none;
-
-   
 }
-.first-btn input:focus , .second-btn select:focus , .date:focus  , .description:focus{
+.font{
+    font-size: 13px;
+}
+.first-btn .first:focus , .second-btn select:focus , .date:focus  , .description:focus{
      border: 2px solid rgb(1, 1, 122);
      box-shadow: 0 0 0 1px rgb(1, 1, 122); 
+}
+.valid:focus{
+     border: 2px solid rgb(243, 8, 8) !important;
+ box-shadow: 0 0 0 1px rgb(243, 8, 8); 
 }
 .second-btn select , .date , .description{
     box-shadow: none !important; 

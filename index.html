@@ -41,13 +41,16 @@
                         <p class="m-0 fw-light Text">0 tasks</p>
                     </div>
                 </div>
-                <div class="rowdata  position-absolute">
+                <div id="rowdata">
+                    <div class="rowdata  position-absolute">
                     <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
                     <div class="folder-info mt-2">
                         <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
                         <p class="m-0 fw-medium size ms-3">Click + to add one</p>
                     </div>
+                </div>  
                 </div>
+              
 
 
 
@@ -65,7 +68,7 @@
                     </div>
                     <p class="fw-bold m-0">hrthrt</p>
                     <p class="m-0 text-secondary">how to use js</p>
-                    <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i> <span
+                    <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i><span
                             class="mx-1">Medium</span> </div>
                     <div class="timer border-bottom pb-2">
                         <i class="fa-regular fa-clock fa-2xs" style="color: rgb(160, 175, 195);"></i>
@@ -134,7 +137,7 @@
         </div>
     </footer>
 
-    
+
     <!-- maincard -->
     <div class="CardForm d-none bg-white  rounded-3 border p-3 border-3 mt-5 mx-auto">
         <div class="d-flex border-bottom   justify-content-between align-items-center">
@@ -145,16 +148,17 @@
             <label for="FormControlInput1" class="form-label">
                 <i class="me-1 fa-solid fa-heading fa-sm" style="color: rgb(69, 85, 117);"></i>Task Title <span
                     class="text-danger">*</span></label>
-            <input type="email" class="form-control py-2" id="FormControlInput1" placeholder="What needs to be done?">
+            <input type="email" class="form-control first py-2" id="FormControlInput1" placeholder="What needs to be done?">
+            <p id="waringValid" class="text-danger font my-1 fw-bold d-none">Task title is required</p>
         </div>
         <div class="second-btn gap-5 d-flex justify-content-between align-items-center ">
             <div class="w-50">
                 <label class="py-1" for="text"><i class="fa-solid fa-flag fa-sm" style="color: rgb(69, 85, 117);"></i>
                     Priority</label>
                 <select class="form-select py-2" id="text" aria-label="Default select example">
-                    <option value="1">Low</option>
-                    <option value="2">Medium</option>
-                    <option value="3">High</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
                 </select>
             </div>
             <div class="w-50">
@@ -174,7 +178,7 @@
         </div>
         <div class="last-btns">
             <button id="close" class="btn btn-danger">Cancel</button>
-            <button class="btn btn-success"> <i class="fa-solid fa-plus fa-sm" style="color: rgb(248, 246, 246);"></i>
+            <button id="clickMainBtn" class="btn btn-success"> <i class="fa-solid fa-plus fa-sm" style="color: rgb(248, 246, 246);"></i>
                 Add Task</button>
         </div>
 
