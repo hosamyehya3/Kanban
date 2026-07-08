@@ -17,7 +17,10 @@ const timerAgo = document.querySelector(".timerAgo");
 const clickUpdateBtn = document.getElementById("clickUpdateBtn");
 const indexOfArray = document.getElementById("indexOfArray");
 const rowdata_progress = document.getElementById("rowdata_progress");
+const rowdata_completed = document.getElementById("rowdata_completed");
 let arr = [];
+let SecondArr = [];
+let thirdArr = [];
 addinfo?.addEventListener("click", () => {
     main?.classList.add("hidden");
     nav?.classList.add("hidden");
@@ -73,11 +76,17 @@ function IsnameValid() {
 function getFromLocalstroge() {
     if (localStorage.getItem("saveCard") !== null) {
         arr = JSON.parse(localStorage.getItem("saveCard"));
-        console.log(JSON.parse(localStorage.getItem("saveCard")));
         DisplayTheCard();
     }
 }
 getFromLocalstroge();
+function getFromLocalstrogeTwo() {
+    if (localStorage.getItem("Progress") !== null) {
+        SecondArr = JSON.parse(localStorage.getItem("Progress"));
+        displayProgress();
+    }
+}
+getFromLocalstrogeTwo();
 function AddValue() {
     let count = 0;
     let timer = setInterval(() => {
@@ -128,7 +137,7 @@ function DisplayTheCard() {
                         <div class="stratBtn d-flex justify-content-center align-items-center my-2">
                             <i class="fa-solid fa-play fa-2xs" style="color: rgb(187, 77, 0);"></i> <span onclick="secondTable(${i})">Start</span>
                         </div>
-                        <div class="stratBtn complete d-flex mx-3 justify-content-center align-items-center my-2">
+                        <div onclick="completeRow1(${i})" class="stratBtn complete d-flex mx-3 justify-content-center align-items-center my-2">
                             <i class="fa-solid fa-check fa-2xs" style="color: rgb(12, 131, 94);"></i>
                             <span>Complete</span>
                         </div>
@@ -142,6 +151,17 @@ function DisplayTheCard() {
     if (indexOfArray) {
         indexOfArray.innerHTML = `${arr.length}  tasks`;
     }
+}
+function completeRow1(index) {
+    console.log(index);
+    let completeObj1 = arr[index];
+    console.log(completeObj1);
+    thirdArr.unshift(completeObj1);
+    console.log(thirdArr);
+    localStorage.setItem("Completed", JSON.stringify(thirdArr));
+    DeleteCard(0);
+    localStorage.setItem("saveCard", JSON.stringify(arr));
+    displayCompleted();
 }
 clickMainBtn?.addEventListener("click", () => {
     if (IsnameValid() == true) {
@@ -207,17 +227,15 @@ clickUpdateBtn?.addEventListener("click", () => {
     clickMainBtn?.classList.remove("d-none");
 });
 const rowdata_2 = document.getElementById("rowdata_2");
-let SecondArr = [];
 function secondTable(index) {
     let result = arr[index];
     console.log(result);
     SecondArr.push(result);
+    localStorage.setItem("Progress", JSON.stringify(SecondArr));
+    localStorage.setItem("saveCard", JSON.stringify(arr));
     console.log(SecondArr);
-    localStorage.setItem("Progress", JSON.stringify(SecondArr));
     DeleteCard(index);
-    localStorage.setItem("Progress", JSON.stringify(arr));
     displayProgress();
-    localStorage.setItem("Progress", JSON.stringify(SecondArr));
 }
 function NoTasks() {
     if (!arr.length) {
@@ -325,7 +343,55 @@ function returnToDo(index) {
     arr.unshift(newObj);
     DeleteCardProgress(0);
     localStorage.setItem("Progress", JSON.stringify(SecondArr));
-    localStorage.setItem("Progress", JSON.stringify(arr));
+    localStorage.setItem("saveCard", JSON.stringify(arr));
     DisplayTheCard();
+    displayProgress();
+}
+function displayCompleted() {
+    let cartona = "";
+    for (let i = 0; i < thirdArr.length; i++) {
+        cartona += `
+            <div class="border Card mx-auto my-4 rounded-3  px-3 bg-white shadow">
+                    <div class="contain d-flex justify-content-between mt-3">
+                        <div class="d-flex justify-content-center">    <div class="circle mt-1"></div>
+                        <p class="numberChange ms-2">#00${i + 1}</p></div>
+                    
+                        <div class="d-flex btns ">
+                            <div onclick="DeleteCardProgress(${i})" title="Delete Task" class="mx-3 delete"><i class="fa-solid fa-trash-can fa-xs" style="color: rgb(160, 175, 195);"></i></div>
+                            <div onclick="updataProgress(${i}) , updateAndDisplay()" title="Edit Task" class="updata"><i class="fa-solid fa-pen fa-xs" style="color: rgb(160, 175, 195);"></i></div>
+                        </div>
+                    </div>
+                    <p class="fw-bold m-0">${thirdArr[i]?.name}</p>
+                    <p class="m-0 text-secondary">${thirdArr[i]?.description}</p>
+                    <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i><span 
+                            class="Priority mx-1">${thirdArr[i]?.Priority}</span> </div>
+                    <div class="timer d-flex border-bottom pb-2">
+                  <div class="dateBtn">
+                        <div class="flex  items-center gap-1.5 ">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span>${thirdArr[i].date}</span>
+                        </div>
+                    </div>
+                    <div class="ms-3" >
+                        <i class="fa-regular fa-clock fa-2xs" style="color: rgb(160, 175, 195);"></i>
+                        <span class="timerAgo">${thirdArr[i]?.timecount}m ago</span> </div>
+                    </div>
+
+
+                    <div class="group-btns d-flex">
+                        <div onclick="returnToDo(${i})" class="stratBtn ToDo d-flex justify-content-center align-items-center my-2">
+                       <i class="fa-solid fa-arrow-rotate-right fa-2xs" style="color: rgb(112, 118, 124);"></i>    <span >To Do</span>
+                        </div>
+                        <div class="stratBtn complete d-flex mx-3 justify-content-center align-items-center my-2">
+                            <i class="fa-solid fa-check fa-2xs" style="color: rgb(12, 131, 94);"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+    }
+    if (rowdata_completed) {
+        rowdata_completed.innerHTML = cartona;
+    }
 }
 //# sourceMappingURL=main.js.map
