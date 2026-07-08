@@ -7,6 +7,9 @@ html {
         display: none;
     }
 }
+.hidden{
+    display: none;
+}
 .Card{
     width: 90%;
 }
@@ -98,9 +101,12 @@ font-size: 12px !important;
      border: 2px solid rgb(1, 1, 122);
      box-shadow: 0 0 0 1px rgb(1, 1, 122); 
 }
-.valid:focus{
+.valid{
      border: 2px solid rgb(243, 8, 8) !important;
- box-shadow: 0 0 0 1px rgb(243, 8, 8); 
+
+}
+.valid:focus{
+ box-shadow: 0 0 0 1px rgb(243, 8, 8);     
 }
 .second-btn select , .date , .description{
     box-shadow: none !important; 
@@ -188,4 +194,28 @@ width: 90px;
 .complete:hover{
     background-color: #A4F4CF;
     
+}
+.dateBtn{
+    font-size: 13px;
+    color: #70767c;
+    font-family: bold;
+    margin-top: 4px;
+}
+.ToDo{
+    background-color: #F1F5F9;
+}
+.ToDo i {
+    font-size: 13px !important;
+    font-weight: bold !important;
+    color: 70767c !important;
+}
+.ToDo span{
+    font-size: 13px ;
+    font-weight: bold ;
+    color: #70767c
+}
+.ToDo:hover{
+    transform: scale(1.05);
+    background-color: #e0e5eb;
+    cursor: pointer;
 }
