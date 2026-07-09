@@ -39,19 +39,7 @@ interface card {
 //       description: string;
 //       timecount?: number;
 // }
-if (thirdArr.length === 0) {
-      if (rowdata_completed) {
-            rowdata_completed.innerHTML=`
-             <div class="rowdata  position-absolute">
-              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
-              <div class="folder-info mt-2">
-                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
-                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
-              </div>
-          </div> 
-            `
-      }
-}
+
 addinfo?.addEventListener("click", () => {
       main?.classList.add("hidden");
       nav?.classList.add("hidden");
@@ -92,6 +80,8 @@ document.body.addEventListener("click", (e) => {
       }
 })
 NoTasks();
+
+
 function IsnameValid() {
       let regex = /^[A-Z][a-z0-9_]{3,}$/
       if (regex.test(FormControlInput1.value)) {
@@ -209,7 +199,6 @@ function completeRow1(index: any) {
       localStorage.setItem("Completed", JSON.stringify(thirdArr));
       DeleteCard(0);
       localStorage.setItem("saveCard", JSON.stringify(arr));
-
       displayCompleted()
 }
 
@@ -466,8 +455,8 @@ function displayCompleted() {
                         <p class="numberChange ms-2">#00${i + 1}</p></div>
                     
                         <div class="d-flex btns ">
-                            <div onclick="DeleteCardProgress(${i})" title="Delete Task" class="mx-3 delete"><i class="fa-solid fa-trash-can fa-xs" style="color: rgb(160, 175, 195);"></i></div>
-                            <div onclick="updataProgress(${i}) , updateAndDisplay()" title="Edit Task" class="updata"><i class="fa-solid fa-pen fa-xs" style="color: rgb(160, 175, 195);"></i></div>
+                            <div onclick="DeleteCardCompleted(${i})" title="Delete Task" class="mx-3 delete"><i class="fa-solid fa-trash-can fa-xs" style="color: rgb(160, 175, 195);"></i></div>
+                            <div onclick="updataCompleted(${i}) , updateAndDisplay()" title="Edit Task" class="updata"><i class="fa-solid fa-pen fa-xs" style="color: rgb(160, 175, 195);"></i></div>
                         </div>
                     </div>
                     <p class="fw-bold m-0">${thirdArr[i]?.name}</p>
@@ -507,6 +496,30 @@ function displayCompleted() {
 
       }
 }
+ 
+function DeleteCardCompleted(index:number){
+thirdArr.splice(index , 1);
+      localStorage.setItem("Completed", JSON.stringify(thirdArr));
+      displayCompleted();
+          if (!thirdArr.length) {
+            if (rowdata_progress) {
+                  console.log(55555555555555);
+
+                  rowdata_progress.innerHTML = `
+       <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+`
+            }
+      }
+
+}
+
+
 
 function returnToDoAgain(index: number) {
       let cardInArrthird = thirdArr[index];
@@ -540,8 +553,14 @@ function thirdTable(index: number) {
       SecondArr.unshift(CardInThirdArray);
       localStorage.setItem("Progress", JSON.stringify(SecondArr));
       displayProgress()
-
+    if (ProgressLength) {
+                  ProgressLength.innerHTML = `${SecondArr.length} tasks`
+            }
 }
+
+
+
+
 
 
 
