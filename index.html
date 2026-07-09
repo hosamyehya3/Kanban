@@ -50,11 +50,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
                 <!-- card -->
                 <div class="d-none border Card mx-auto my-4 rounded-3  px-3 bg-white shadow">
                     <div class="contain d-flex justify-content-between mt-3">
@@ -95,11 +90,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
             <div class="section2 mx-2  position-relative py-5">
                 <div class="d-flex  position-absolute position1">
@@ -112,7 +102,7 @@
                     </div>
                 </div>
                 <div id="rowdata_progress">
-                    <div class="progress-Data rowdata position-absolute">
+                    <div class="progress-Data  rowdata position-absolute">
                         <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
                         <div class="folder-info mt-2">
                             <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
@@ -129,7 +119,7 @@
                             style="color: rgb(0, 188, 125);"></i></div>
                     <div class="mt-3">
                         <p class="m-0 fw-bold">Completed</p>
-                        <p class="m-0 fw-light Text">0 tasks</p>
+                        <p id="third_arr" class="m-0 fw-light Text">0 tasks</p>
                     </div>
                 </div>
                 <div id="rowdata_completed">
@@ -153,12 +143,11 @@
             </p>
         </div>
     </footer>
-
-
     <!-- maincard -->
     <div class="CardForm d-none bg-white  rounded-3 border p-3 border-3 mt-5 mx-auto">
         <div class="d-flex border-bottom   justify-content-between align-items-center">
-            <p class="mt-1 fw-bold">Create New Task</p>
+            <p id="titleMainCard" class="mt-1 fw-bold">Create New Task</p>
+            <p id="titleMainCardEdite" class="d-none mt-1 fw-bold">Edit Task</p>
             <div class="xmark"><i class="fa-solid fa-xmark fa-sm" style="color: rgb(69, 85, 117);"></i></div>
         </div>
         <div class="first-btn my-3">
@@ -202,26 +191,8 @@
             <button id="clickUpdateBtn" class="btn btn-warning d-none"> <i class="fa-solid fa-plus fa-sm"
                     style="color: rgb(248, 246, 246);"></i>
                 Update</button>
-
         </div>
-
-
-
-
-
-
-
     </div>
-
-
-
-
-
-
-
-
-
-
     <script src="./dist/main.js"></script>
 </body>
 

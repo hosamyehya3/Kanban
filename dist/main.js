@@ -18,9 +18,25 @@ const clickUpdateBtn = document.getElementById("clickUpdateBtn");
 const indexOfArray = document.getElementById("indexOfArray");
 const rowdata_progress = document.getElementById("rowdata_progress");
 const rowdata_completed = document.getElementById("rowdata_completed");
+const titleMainCard = document.getElementById("titleMainCard");
+const titleMainCardEdite = document.getElementById("titleMainCardEdite");
+const third_arr = document.getElementById("third_arr");
 let arr = [];
 let SecondArr = [];
 let thirdArr = [];
+if (thirdArr.length === 0) {
+    if (rowdata_completed) {
+        rowdata_completed.innerHTML = `
+             <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+            `;
+    }
+}
 addinfo?.addEventListener("click", () => {
     main?.classList.add("hidden");
     nav?.classList.add("hidden");
@@ -28,6 +44,8 @@ addinfo?.addEventListener("click", () => {
     document.body.classList.add("linear");
     CardForm?.classList.remove("d-none");
     resetAllBtn();
+    titleMainCardEdite?.classList.add("d-none");
+    titleMainCard?.classList.remove("d-none");
 });
 xmark?.addEventListener("click", () => {
     main?.classList.remove("hidden");
@@ -87,6 +105,13 @@ function getFromLocalstrogeTwo() {
     }
 }
 getFromLocalstrogeTwo();
+function getFromLocalstrogethird() {
+    if (localStorage.getItem("Completed") !== null) {
+        thirdArr = JSON.parse(localStorage.getItem("Completed"));
+        displayCompleted();
+    }
+}
+getFromLocalstrogethird();
 function AddValue() {
     let count = 0;
     let timer = setInterval(() => {
@@ -206,6 +231,8 @@ function updata(index) {
     document.body.classList.add("linear");
     clickMainBtn?.classList.add("d-none");
     clickUpdateBtn?.classList.remove("d-none");
+    titleMainCardEdite?.classList.remove("d-none");
+    titleMainCard?.classList.add("d-none");
 }
 function updateAndDisplay() {
     arr[NewIndex].name = FormControlInput1.value;
@@ -301,7 +328,7 @@ function displayProgress() {
                         <div onclick="returnToDo(${i})" class="stratBtn ToDo d-flex justify-content-center align-items-center my-2">
                        <i class="fa-solid fa-arrow-rotate-right fa-2xs" style="color: rgb(112, 118, 124);"></i>    <span >To Do</span>
                         </div>
-                        <div class="stratBtn complete d-flex mx-3 justify-content-center align-items-center my-2">
+                        <div onclick="returnToCompleted(${i})" class="stratBtn complete d-flex mx-3 justify-content-center align-items-center my-2">
                             <i class="fa-solid fa-check fa-2xs" style="color: rgb(12, 131, 94);"></i>
                             <span>Complete</span>
                         </div>
@@ -315,6 +342,29 @@ function displayProgress() {
             ProgressLength.innerHTML = `${SecondArr.length} tasks`;
         }
     }
+}
+function returnToCompleted(index) {
+    let Cardreturn = SecondArr[index];
+    SecondArr.splice(index, 1);
+    localStorage.setItem("Progress", JSON.stringify(SecondArr));
+    displayProgress();
+    if (!SecondArr.length) {
+        if (rowdata_progress) {
+            console.log(55555555555555);
+            rowdata_progress.innerHTML = `
+       <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+`;
+        }
+    }
+    thirdArr.unshift(Cardreturn);
+    localStorage.setItem("Completed", JSON.stringify(thirdArr));
+    displayCompleted();
 }
 function DeleteCardProgress(index) {
     SecondArr.splice(index, 1);
@@ -379,12 +429,11 @@ function displayCompleted() {
 
 
                     <div class="group-btns d-flex">
-                        <div onclick="returnToDo(${i})" class="stratBtn ToDo d-flex justify-content-center align-items-center my-2">
+                        <div onclick="returnToDoAgain(${i})" class="stratBtn ToDo d-flex justify-content-center align-items-center my-2">
                        <i class="fa-solid fa-arrow-rotate-right fa-2xs" style="color: rgb(112, 118, 124);"></i>    <span >To Do</span>
                         </div>
-                        <div class="stratBtn complete d-flex mx-3 justify-content-center align-items-center my-2">
-                            <i class="fa-solid fa-check fa-2xs" style="color: rgb(12, 131, 94);"></i>
-                            <span>Complete</span>
+                         <div class="stratBtn d-flex justify-content-center ms-2 align-items-center my-2">
+                            <i class="fa-solid fa-play fa-2xs" style="color: rgb(187, 77, 0);"></i> <span onclick="thirdTable(${i})">Start</span>
                         </div>
                     </div>
                 </div>
@@ -393,5 +442,40 @@ function displayCompleted() {
     if (rowdata_completed) {
         rowdata_completed.innerHTML = cartona;
     }
+    if (third_arr) {
+        third_arr.innerHTML = `${thirdArr.length} tasks`;
+    }
+}
+function returnToDoAgain(index) {
+    let cardInArrthird = thirdArr[index];
+    thirdArr.splice(index, 1);
+    localStorage.setItem("Completed", JSON.stringify(thirdArr));
+    displayCompleted();
+    if (!thirdArr.length) {
+        if (rowdata_progress) {
+            console.log(55555555555555);
+            rowdata_progress.innerHTML = `
+       <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+`;
+        }
+    }
+    arr.unshift(cardInArrthird);
+    localStorage.setItem("saveCard", JSON.stringify(arr));
+    DisplayTheCard();
+}
+function thirdTable(index) {
+    let CardInThirdArray = thirdArr[index];
+    thirdArr.splice(index, 1);
+    localStorage.setItem("Completed", JSON.stringify(thirdArr));
+    displayCompleted();
+    SecondArr.unshift(CardInThirdArray);
+    localStorage.setItem("Progress", JSON.stringify(SecondArr));
+    displayProgress();
 }
 //# sourceMappingURL=main.js.map
