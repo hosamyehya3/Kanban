@@ -219,3 +219,8 @@ width: 90px;
     background-color: #e0e5eb;
     cursor: pointer;
 }
+.lineThrow {
+  text-decoration: line-through;
+  text-decoration-color: red; 
+  text-decoration-thickness: 2px; 
+}

@@ -11,7 +11,6 @@ const waringValid = document.getElementById('waringValid');
 const text = document.getElementById("text");
 const date = document.getElementById("date");
 const description = document.getElementById("FormControlTextarea1");
-const Card = document.querySelectorAll("Card");
 const rowdata = document.getElementById('rowdata');
 const timerAgo = document.querySelector(".timerAgo");
 const clickUpdateBtn = document.getElementById("clickUpdateBtn");
@@ -116,6 +115,21 @@ function AddValue() {
     localStorage.setItem("saveCard", JSON.stringify(arr));
 }
 function DisplayTheCard() {
+    if (!arr.length) {
+        if (rowdata) {
+            console.log(55555555555555);
+            rowdata.innerHTML = `
+       <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+`;
+        }
+        return;
+    }
     let box = "";
     for (let i = 0; i < arr.length; i++) {
         box += `   <div class="border Card mx-auto my-4 rounded-3  px-3 bg-white shadow">
@@ -130,7 +144,7 @@ function DisplayTheCard() {
                     </div>
                     <p class="fw-bold m-0">${arr[i]?.name}</p>
                     <p class="m-0 text-secondary">${arr[i]?.description}</p>
-                    <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i><span 
+                    <div class="Priority my-1"><i id="colorOfclassPriorityIcon" class="fa-solid fa-circle fa-2xs" style="color:rgb(197, 158, 2);"></i><span 
                             class="Priority mx-1">${arr[i]?.Priority}</span> </div>
                     <div class="timer d-flex border-bottom pb-2">
                   <div class="dateBtn">
@@ -156,24 +170,25 @@ function DisplayTheCard() {
                     </div>
                 </div>
 `;
-    }
-    if (rowdata) {
-        rowdata.innerHTML = box;
-    }
-    if (indexOfArray) {
-        indexOfArray.innerHTML = `${arr.length}  tasks`;
+        if (rowdata) {
+            rowdata.innerHTML = box;
+        }
+        if (indexOfArray) {
+            indexOfArray.innerHTML = `${arr.length}  tasks`;
+        }
     }
 }
 function completeRow1(index) {
-    console.log(index);
     let completeObj1 = arr[index];
-    console.log(completeObj1);
     thirdArr.unshift(completeObj1);
-    console.log(thirdArr);
-    localStorage.setItem("Completed", JSON.stringify(thirdArr));
     DeleteCard(0);
     localStorage.setItem("saveCard", JSON.stringify(arr));
+    DisplayTheCard();
+    localStorage.setItem("Completed", JSON.stringify(thirdArr));
     displayCompleted();
+    if (indexOfArray) {
+        indexOfArray.innerHTML = `${arr.length}  tasks`;
+    }
 }
 clickMainBtn?.addEventListener("click", () => {
     if (IsnameValid() == true) {
@@ -243,13 +258,14 @@ clickUpdateBtn?.addEventListener("click", () => {
 const rowdata_2 = document.getElementById("rowdata_2");
 function secondTable(index) {
     let result = arr[index];
-    console.log(result);
     SecondArr.push(result);
-    localStorage.setItem("Progress", JSON.stringify(SecondArr));
     localStorage.setItem("saveCard", JSON.stringify(arr));
-    console.log(SecondArr);
     DeleteCard(index);
+    localStorage.setItem("Progress", JSON.stringify(SecondArr));
     displayProgress();
+    if (indexOfArray) {
+        indexOfArray.innerHTML = `${arr.length}  tasks`;
+    }
 }
 function NoTasks() {
     if (!arr.length) {
@@ -281,6 +297,21 @@ FormControlTextarea1?.addEventListener("input", (e) => {
 });
 const ProgressLength = document.getElementById("ProgressLength");
 function displayProgress() {
+    if (!SecondArr.length) {
+        if (rowdata_progress) {
+            console.log(55555555555555);
+            rowdata_progress.innerHTML = `
+       <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+`;
+        }
+        return;
+    }
     let cartona = "";
     for (let i = 0; i < SecondArr.length; i++) {
         cartona += `
@@ -297,7 +328,7 @@ function displayProgress() {
                     <p class="fw-bold m-0">${SecondArr[i]?.name}</p>
                     <p class="m-0 text-secondary">${SecondArr[i]?.description}</p>
                     <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i><span 
-                            class="Priority mx-1">${SecondArr[i]?.Priority}</span> </div>
+                            class="Priority  mx-1">${SecondArr[i]?.Priority}</span> </div>
                     <div class="timer d-flex border-bottom pb-2">
                   <div class="dateBtn">
                         <div class="flex  items-center gap-1.5 ">
@@ -352,6 +383,9 @@ function returnToCompleted(index) {
     thirdArr.unshift(Cardreturn);
     localStorage.setItem("Completed", JSON.stringify(thirdArr));
     displayCompleted();
+    if (ProgressLength) {
+        ProgressLength.innerHTML = `${SecondArr.length} tasks`;
+    }
 }
 function DeleteCardProgress(index) {
     SecondArr.splice(index, 1);
@@ -380,11 +414,26 @@ function returnToDo(index) {
     arr.unshift(newObj);
     DeleteCardProgress(0);
     localStorage.setItem("Progress", JSON.stringify(SecondArr));
+    displayProgress();
     localStorage.setItem("saveCard", JSON.stringify(arr));
     DisplayTheCard();
-    displayProgress();
 }
 function displayCompleted() {
+    if (!thirdArr.length) {
+        if (rowdata_completed) {
+            console.log(55555555555555);
+            rowdata_completed.innerHTML = `
+       <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+`;
+        }
+        return;
+    }
     let cartona = "";
     for (let i = 0; i < thirdArr.length; i++) {
         cartona += `
@@ -398,7 +447,7 @@ function displayCompleted() {
                             <div onclick="updataCompleted(${i}) , updateAndDisplay()" title="Edit Task" class="updata"><i class="fa-solid fa-pen fa-xs" style="color: rgb(160, 175, 195);"></i></div>
                         </div>
                     </div>
-                    <p class="fw-bold m-0">${thirdArr[i]?.name}</p>
+                    <p  class="lineThrow fw-bold m-0">${thirdArr[i]?.name}</p>
                     <p class="m-0 text-secondary">${thirdArr[i]?.description}</p>
                     <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i><span 
                             class="Priority mx-1">${thirdArr[i]?.Priority}</span> </div>
@@ -437,19 +486,8 @@ function DeleteCardCompleted(index) {
     thirdArr.splice(index, 1);
     localStorage.setItem("Completed", JSON.stringify(thirdArr));
     displayCompleted();
-    if (!thirdArr.length) {
-        if (rowdata_progress) {
-            console.log(55555555555555);
-            rowdata_progress.innerHTML = `
-       <div class="rowdata  position-absolute">
-              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
-              <div class="folder-info mt-2">
-                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
-                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
-              </div>
-          </div> 
-`;
-        }
+    if (third_arr) {
+        third_arr.innerHTML = `${thirdArr.length} tasks`;
     }
 }
 function returnToDoAgain(index) {
@@ -457,23 +495,12 @@ function returnToDoAgain(index) {
     thirdArr.splice(index, 1);
     localStorage.setItem("Completed", JSON.stringify(thirdArr));
     displayCompleted();
-    if (!thirdArr.length) {
-        if (rowdata_progress) {
-            console.log(55555555555555);
-            rowdata_progress.innerHTML = `
-       <div class="rowdata  position-absolute">
-              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
-              <div class="folder-info mt-2">
-                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
-                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
-              </div>
-          </div> 
-`;
-        }
-    }
     arr.unshift(cardInArrthird);
     localStorage.setItem("saveCard", JSON.stringify(arr));
     DisplayTheCard();
+    if (third_arr) {
+        third_arr.innerHTML = `${thirdArr.length} tasks`;
+    }
 }
 function thirdTable(index) {
     let CardInThirdArray = thirdArr[index];
@@ -485,6 +512,9 @@ function thirdTable(index) {
     displayProgress();
     if (ProgressLength) {
         ProgressLength.innerHTML = `${SecondArr.length} tasks`;
+    }
+    if (third_arr) {
+        third_arr.innerHTML = `${thirdArr.length} tasks`;
     }
 }
 //# sourceMappingURL=main.js.map

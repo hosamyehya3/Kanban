@@ -11,7 +11,6 @@ const waringValid = document.getElementById('waringValid');
 const text = document.getElementById("text") as HTMLInputElement;
 const date = document.getElementById("date") as HTMLInputElement;
 const description = document.getElementById("FormControlTextarea1") as HTMLInputElement;
-const Card = document.querySelectorAll("Card");
 const rowdata = document.getElementById('rowdata');
 const timerAgo = document.querySelector(".timerAgo");
 const clickUpdateBtn = document.getElementById("clickUpdateBtn");
@@ -21,7 +20,6 @@ const rowdata_completed = document.getElementById("rowdata_completed");
 const titleMainCard = document.getElementById("titleMainCard");
 const titleMainCardEdite = document.getElementById("titleMainCardEdite");
 const third_arr = document.getElementById("third_arr");
-
 let arr: any[] = [];
 let SecondArr: any[] = [];
 let thirdArr: any[] = [];
@@ -32,13 +30,7 @@ interface card {
       description: string;
       timecount: number;
 }
-// interface card2 {
-//       name: string;
-//       Priority: string;
-//       date: string;
-//       description: string;
-//       timecount?: number;
-// }
+
 
 addinfo?.addEventListener("click", () => {
       main?.classList.add("hidden");
@@ -95,7 +87,6 @@ function IsnameValid() {
       }
       return regex.test(FormControlInput1.value);
 }
-
 function getFromLocalstroge() {
       if (localStorage.getItem("saveCard") !== null) {
             arr = JSON.parse(localStorage.getItem("saveCard")!);
@@ -112,8 +103,8 @@ function getFromLocalstrogeTwo() {
 }
 getFromLocalstrogeTwo();
 
-function getFromLocalstrogethird(){
-  if (localStorage.getItem("Completed") !== null) {
+function getFromLocalstrogethird() {
+      if (localStorage.getItem("Completed") !== null) {
             thirdArr = JSON.parse(localStorage.getItem("Completed")!);
             displayCompleted();
       }
@@ -134,14 +125,31 @@ function AddValue() {
             description: description.value,
             timecount: count
       }
+
       arr.push(card);
       localStorage.setItem("saveCard", JSON.stringify(arr));
 
 }
 function DisplayTheCard() {
+      if (!arr.length) {
+            if (rowdata) {
+                  console.log(55555555555555);
 
+                  rowdata.innerHTML = `
+       <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+`
+            }
+            return
+      }
       let box = "";
       for (let i = 0; i < arr.length; i++) {
+      
             box += `   <div class="border Card mx-auto my-4 rounded-3  px-3 bg-white shadow">
                     <div class="contain d-flex justify-content-between mt-3">
                         <div class="d-flex justify-content-center">    <div class="circle mt-1"></div>
@@ -154,7 +162,7 @@ function DisplayTheCard() {
                     </div>
                     <p class="fw-bold m-0">${arr[i]?.name}</p>
                     <p class="m-0 text-secondary">${arr[i]?.description}</p>
-                    <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i><span 
+                    <div class="Priority my-1"><i id="colorOfclassPriorityIcon" class="fa-solid fa-circle fa-2xs" style="color:rgb(197, 158, 2);"></i><span 
                             class="Priority mx-1">${arr[i]?.Priority}</span> </div>
                     <div class="timer d-flex border-bottom pb-2">
                   <div class="dateBtn">
@@ -179,36 +187,33 @@ function DisplayTheCard() {
                         </div>
                     </div>
                 </div>
-`
-      }
+`  
       if (rowdata) {
             rowdata.innerHTML = box;
       }
       if (indexOfArray) {
             indexOfArray.innerHTML = `${arr.length}  tasks`;
       }
-
 }
-
+}
 function completeRow1(index: any) {
-      console.log(index);
       let completeObj1 = arr[index];
-      console.log(completeObj1);
-      thirdArr.unshift(completeObj1)
-      console.log(thirdArr);
-      localStorage.setItem("Completed", JSON.stringify(thirdArr));
+      thirdArr.unshift(completeObj1);
       DeleteCard(0);
       localStorage.setItem("saveCard", JSON.stringify(arr));
-      displayCompleted()
+      DisplayTheCard();
+      localStorage.setItem("Completed", JSON.stringify(thirdArr));
+      displayCompleted();
+      if (indexOfArray) {
+            indexOfArray.innerHTML = `${arr.length}  tasks`;
+      }
 }
-
-
-
 clickMainBtn?.addEventListener("click", () => {
       if (IsnameValid() == true) {
             AddValue();
             DisplayTheCard();
             resetAllBtn();
+
             main?.classList.remove("hidden");
             nav?.classList.remove("hidden");
             footer?.classList.remove("hidden");
@@ -219,6 +224,7 @@ clickMainBtn?.addEventListener("click", () => {
             console.log("wrong in regex try again");
       }
 })
+
 function DeleteCard(index: any) {
       console.log(index);
       arr.splice(index, 1);
@@ -226,9 +232,7 @@ function DeleteCard(index: any) {
       DisplayTheCard();
       // getFromLocalstroge();
       NoTasks();
-
 }
-
 function resetAllBtn() {
       FormControlInput1.value = "";
       text.value = "";
@@ -279,14 +283,14 @@ const rowdata_2 = document.getElementById("rowdata_2");
 
 function secondTable(index: any) {
       let result = arr[index];
-      console.log(result);
       SecondArr.push(result);
-      localStorage.setItem("Progress", JSON.stringify(SecondArr));
       localStorage.setItem("saveCard", JSON.stringify(arr));
-      console.log(SecondArr);
       DeleteCard(index);
+      localStorage.setItem("Progress", JSON.stringify(SecondArr));
       displayProgress();
-
+      if (indexOfArray) {
+            indexOfArray.innerHTML = `${arr.length}  tasks`;
+      }
 }
 function NoTasks() {
       if (!arr.length) {
@@ -323,9 +327,27 @@ FormControlTextarea1?.addEventListener("input", (e) => {
 
 });
 const ProgressLength = document.getElementById("ProgressLength");
+
 function displayProgress() {
+      if (!SecondArr.length) {
+            if (rowdata_progress) {
+                  console.log(55555555555555);
+
+                  rowdata_progress.innerHTML = `
+       <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+`
+            }
+            return
+      }
       let cartona = "";
       for (let i = 0; i < SecondArr.length; i++) {
+
             cartona += `
               <div class="border Card mx-auto my-4 rounded-3  px-3 bg-white shadow">
                     <div class="contain d-flex justify-content-between mt-3">
@@ -340,7 +362,7 @@ function displayProgress() {
                     <p class="fw-bold m-0">${SecondArr[i]?.name}</p>
                     <p class="m-0 text-secondary">${SecondArr[i]?.description}</p>
                     <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i><span 
-                            class="Priority mx-1">${SecondArr[i]?.Priority}</span> </div>
+                            class="Priority  mx-1">${SecondArr[i]?.Priority}</span> </div>
                     <div class="timer d-flex border-bottom pb-2">
                   <div class="dateBtn">
                         <div class="flex  items-center gap-1.5 ">
@@ -374,12 +396,12 @@ function displayProgress() {
       }
 }
 
-function returnToCompleted(index:number){
+function returnToCompleted(index: number) {
       let Cardreturn = SecondArr[index];
-            SecondArr.splice(index, 1);
+      SecondArr.splice(index, 1);
       localStorage.setItem("Progress", JSON.stringify(SecondArr));
       displayProgress();
-   if (!SecondArr.length) {
+      if (!SecondArr.length) {
             if (rowdata_progress) {
                   console.log(55555555555555);
 
@@ -395,19 +417,12 @@ function returnToCompleted(index:number){
             }
       }
       thirdArr.unshift(Cardreturn);
-            localStorage.setItem("Completed", JSON.stringify(thirdArr));
-displayCompleted();
-
-
-
+      localStorage.setItem("Completed", JSON.stringify(thirdArr));
+      displayCompleted();
+      if (ProgressLength) {
+            ProgressLength.innerHTML = `${SecondArr.length} tasks`
+      }
 }
-
-
-
-
-
-
-
 
 function DeleteCardProgress(index: any) {
       SecondArr.splice(index, 1);
@@ -439,13 +454,30 @@ function returnToDo(index: any) {
       arr.unshift(newObj);
       DeleteCardProgress(0);
       localStorage.setItem("Progress", JSON.stringify(SecondArr));
+      displayProgress();
       localStorage.setItem("saveCard", JSON.stringify(arr));
       DisplayTheCard();
-      displayProgress();
+
 }
 
 
 function displayCompleted() {
+      if (!thirdArr.length) {
+            if (rowdata_completed) {
+                  console.log(55555555555555);
+
+                  rowdata_completed.innerHTML = `
+       <div class="rowdata  position-absolute">
+              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
+              <div class="folder-info mt-2">
+                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
+                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
+              </div>
+          </div> 
+`
+            }
+            return
+      }
       let cartona = "";
       for (let i = 0; i < thirdArr.length; i++) {
             cartona += `
@@ -459,7 +491,7 @@ function displayCompleted() {
                             <div onclick="updataCompleted(${i}) , updateAndDisplay()" title="Edit Task" class="updata"><i class="fa-solid fa-pen fa-xs" style="color: rgb(160, 175, 195);"></i></div>
                         </div>
                     </div>
-                    <p class="fw-bold m-0">${thirdArr[i]?.name}</p>
+                    <p  class="lineThrow fw-bold m-0">${thirdArr[i]?.name}</p>
                     <p class="m-0 text-secondary">${thirdArr[i]?.description}</p>
                     <div class="Priority my-1"><i class="fa-solid fa-circle fa-2xs" style="color:#c59e02;"></i><span 
                             class="Priority mx-1">${thirdArr[i]?.Priority}</span> </div>
@@ -495,55 +527,33 @@ function displayCompleted() {
             third_arr.innerHTML = `${thirdArr.length} tasks`;
 
       }
+
 }
- 
-function DeleteCardCompleted(index:number){
-thirdArr.splice(index , 1);
+
+function DeleteCardCompleted(index: number) {
+      thirdArr.splice(index, 1);
       localStorage.setItem("Completed", JSON.stringify(thirdArr));
       displayCompleted();
-          if (!thirdArr.length) {
-            if (rowdata_progress) {
-                  console.log(55555555555555);
+      if (third_arr) {
+            third_arr.innerHTML = `${thirdArr.length} tasks`;
 
-                  rowdata_progress.innerHTML = `
-       <div class="rowdata  position-absolute">
-              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
-              <div class="folder-info mt-2">
-                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
-                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
-              </div>
-          </div> 
-`
-            }
       }
-
 }
-
-
 
 function returnToDoAgain(index: number) {
       let cardInArrthird = thirdArr[index];
       thirdArr.splice(index, 1);
       localStorage.setItem("Completed", JSON.stringify(thirdArr));
       displayCompleted();
-         if (!thirdArr.length) {
-            if (rowdata_progress) {
-                  console.log(55555555555555);
 
-                  rowdata_progress.innerHTML = `
-       <div class="rowdata  position-absolute">
-              <i class="ms-5 fa-regular fa-folder-open fa-2xl" style="color: rgb(197, 206, 219);"></i>
-              <div class="folder-info mt-2">
-                  <p class="m-0 ms-4 fw-bold ">No tasks yet</p>
-                  <p class="m-0 fw-medium size ms-3">Click + to add one</p>
-              </div>
-          </div> 
-`
-            }
-      }
       arr.unshift(cardInArrthird);
       localStorage.setItem("saveCard", JSON.stringify(arr));
       DisplayTheCard();
+      if (third_arr) {
+            third_arr.innerHTML = `${thirdArr.length} tasks`;
+
+      }
+
 }
 function thirdTable(index: number) {
       let CardInThirdArray = thirdArr[index];
@@ -553,38 +563,13 @@ function thirdTable(index: number) {
       SecondArr.unshift(CardInThirdArray);
       localStorage.setItem("Progress", JSON.stringify(SecondArr));
       displayProgress()
-    if (ProgressLength) {
-                  ProgressLength.innerHTML = `${SecondArr.length} tasks`
-            }
+      if (ProgressLength) {
+            ProgressLength.innerHTML = `${SecondArr.length} tasks`
+      }
+      if (third_arr) {
+            third_arr.innerHTML = `${thirdArr.length} tasks`;
+
+      }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
